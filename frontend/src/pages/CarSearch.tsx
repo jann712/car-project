@@ -23,10 +23,10 @@ export default function CarSearch() {
             <div className='w-auto m-4 bg-slate-200 h-16'/>
           </div>
           <div className='w-full flex flex-wrap flex-auto justify-evenly gap-y-4'>
-            <CarCard name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
-            <CarCard name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
-            <CarCard name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
-            <CarCard name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
+            <CarCard id={1} name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
+            <CarCard id={2} name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
+            <CarCard id={3} name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
+            <CarCard id={4} name={"Honda Crusader"} desc={"this is a car"} price={300.99} totalKm={200} />
 
           </div>
         </div>

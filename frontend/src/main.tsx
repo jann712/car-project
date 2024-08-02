@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import Navbar from './components/Navbar.tsx'
 import CarSearch from './pages/CarSearch.tsx'
 import Login from './pages/Login.tsx'
+import VendaCarro from './pages/VendaCarro.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
     {
       path: "login",
       element: <Login />
+    },
+    {
+      path: "carro/:id",
+      element: <VendaCarro />
     }]
 
   },
