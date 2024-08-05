@@ -18,3 +18,9 @@ model Car {
   valor Float
   foto String
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  email String
+  hashPassword String
+}

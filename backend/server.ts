@@ -1,8 +1,24 @@
 import { PrismaClient } from "@prisma/client";
-import Fastify from "fastify";
+import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCors from "@fastify/cors";
 import fastifyCookie from "@fastify/cookie";
+
+type User = {
+    id: Number,
+    email: String,
+    hashPassword: String
+
+}
+
+type Car = {
+    id: Number,
+    nome: String,
+    marca: String,
+    modelo: String,
+    valor: Number,
+    foto: String
+}
 
 const app = Fastify({
     logger: true
@@ -25,7 +41,13 @@ app.register(fastifyCors, {
 
 app.register(fastifyCookie)
 
-
+app.decorate("authenticate", async function(request: FastifyRequest, reply: FastifyReply) {
+    try {
+        await request.jwtVerify()
+    } catch (err){
+        reply.send(err)
+    }
+})
 
 app.get('/', async function (request, reply) {
     const token = await reply.jwtSign({
@@ -44,8 +66,13 @@ app.get('/', async function (request, reply) {
     .send({hello: 'world'})
 })
 
-app.get('/auth', async function (request, reply) {
-    reply.setCookie()
+app.get("/login", async function (request: FastifyRequest<{Body: Omit<User, "id">}>, reply) {
+    const { email, hashPassword }  = request.body
+
+    const user = prisma
+
+    const isMatch = user && (await bcrypt.compare(password, user.password))
+    
 })
 
 app.get('/carros', async function (request, reply) {
@@ -104,7 +131,7 @@ app.delete('/carro/:id', async (request, reply) => {
 
 
 
-app.addHook('onRequest', (request) => request.jwtVerify())
+// app.addHook('onRequest', (request) => request.jwtVerify())
 
 app.listen({port: 3000}, function(err, address) {
     if (err) {
