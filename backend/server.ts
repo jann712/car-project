@@ -3,6 +3,7 @@ import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCors from "@fastify/cors";
 import fastifyCookie from "@fastify/cookie";
+import bcrypt from "bcrypt"
 
 type User = {
     id: Number,
@@ -69,9 +70,9 @@ app.get('/', async function (request, reply) {
 app.get("/login", async function (request: FastifyRequest<{Body: Omit<User, "id">}>, reply) {
     const { email, hashPassword }  = request.body
 
-    const user = prisma
+    const user = await prisma.user.findUniqueOrThrow({where: { email: email }})
 
-    const isMatch = user && (await bcrypt.compare(password, user.password))
+    const isMatch = user && bcrypt.compare(hashPassword, user.hashPassword)
     
 })
 
