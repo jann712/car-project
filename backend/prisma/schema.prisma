@@ -12,7 +12,7 @@ datasource db {
 
 model Car {
   id  Int @id @default(autoincrement())
-  nome String
+  nome String @unique
   marca String
   modelo String
   valor Float
@@ -21,6 +21,6 @@ model Car {
 
 model User {
   id Int @id @default(autoincrement())
-  email String
+  email String @unique
   hashPassword String
 }

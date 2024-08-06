@@ -1,37 +1,76 @@
 import {z} from 'zod'
 import { buildJsonSchemas } from 'fastify-zod'
 
+//schema para criacao de usuarios
+
 const createUserSchema = z.object({
-    email: z.string(),
-    password: z.string().min(6),
-
+  email: z.string(),
+  password: z.string().min(6)
 })
 
-export type CreateUserInput= z.infer<typeof createUserSchema>
+// transformando o schema em tipo para o request body
+export type CreateUserInput = z.infer<typeof createUserSchema>
 
+
+//schema para registrar um usuario
 const createUserResponseSchema = z.object({
-    id: z.number(),
-    email: z.string()
+  id: z.number(),
+  email: z.string()
 })
 
+//schema para rota de login
 const loginSchema = z.object({
-    email: z
-      .string({
-        required_error: 'Email is required',
-        invalid_type_error: 'Email must be a string',
-      })
-      .email(),
-    password: z.string().min(6),
-  })
-  export type LoginUserInput = z.infer<typeof loginSchema>
-  const loginResponseSchema = z.object({
-    accessToken: z.string(),
-  })
-  // to build our JSON schema, we use buildJsonSchemas from fastify-zod
-  // it returns all the schemas to register and a ref to refer these schemas
-  export const { schemas: userSchemas, $ref } = buildJsonSchemas({
-    createUserSchema,
-    createUserResponseSchema,
-    loginSchema,
-    loginResponseSchema,
-  })
+  email: z.string({
+    required_error: 'E-mail e necessario.',
+    invalid_type_error: 'E-mail deve ser uma string.'
+  }).email(),
+  password: z.string().min(6)
+})
+
+// transformando o schema em tipo para a rota de login
+export type LoginUserInput = z.infer<typeof loginSchema>
+
+//schema para o token jwt
+const loginResponseSchema = z.object({
+  accessToken: z.string()
+})
+
+export const {schemas: userSchemas, $ref} = buildJsonSchemas({
+  createUserSchema,
+  createUserResponseSchema,
+  loginSchema,
+  loginResponseSchema
+})
+
+
+//schema para criacao de carros
+
+const createCarSchema = z.object({
+  nome: z.string(),
+  marca: z.string(),
+  modelo: z.string(),
+  valor: z.number(),
+  foto: z.string()
+})
+
+//transformando o schema em tipo para a criacao de novos carros
+export type CreateCarInput = z.infer<typeof createCarSchema>
+
+const updateCarSchema = z.object({
+  nome: z.string(),
+  marca: z.string(),
+  modelo: z.string(),
+  valor: z.number(),
+  foto: z.string()
+})
+
+//transformando em schema
+export type UpdateCarInput = z.infer<typeof updateCarSchema>
+
+//schema para delecao de carros
+const deleteCarSchema = z.object({
+  id: z.number()
+})
+
+export type DeleteCarInput = z.infer<typeof deleteCarSchema>
+export type CreateSingleCarInput = z.infer<typeof deleteCarSchema>
