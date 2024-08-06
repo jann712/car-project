@@ -55,6 +55,7 @@ app.addHook('preHandler', (request, reply, next) => {
 
 app.register(fastifyCors, {
     credentials: true,
+    origin: "http://localhost:5173"
     
 })
 
