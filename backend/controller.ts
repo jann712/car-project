@@ -1,5 +1,5 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
-import { CreateCarInput, CreateSingleCarInput, CreateUserInput, DeleteCarInput, LoginUserInput, UpdateCarInput } from "./schema.js";
+import { CreateCarInput, CreateSingleCarInput, CreateUserInput, DeleteCarInput, LoginUserInput, UpdateCarInput, UpdateUserInput, UpdateUserParam } from "./schema.js";
 import bcrypt from "bcrypt"
 import prisma from "./prisma.js";
 
@@ -40,6 +40,30 @@ export async function createUser(
     }
 }
 
+export async function updateUser(request:FastifyRequest<{Params: UpdateUserParam, Body: UpdateUserInput }>, reply:FastifyReply) {
+    const { email, role } = request.body
+    const { id } = request.params
+
+    const user = await prisma.user.findUnique({where: {id: parseInt(id)}})
+
+    if (!user) {
+        return reply.code(401).send({
+            message: "O usuario com esse ID não existe."
+        })
+    }
+
+    try {
+        const user = await prisma.user.update({where: {id: parseInt(id)}, data: {
+            email,
+            role
+        }})
+
+        return reply.code(201).send(user)
+    } catch (err) {
+        return reply.code(401).send(err)
+    }
+    
+}
 
 //login com conta existente
 export async function login(
@@ -87,8 +111,9 @@ export async function logout(request: FastifyRequest, reply: FastifyReply) {
 export async function getUsers(request: FastifyRequest, reply: FastifyReply) {
     const users = await prisma.user.findMany({
         select: {
+            id: true,
             email: true,
-            id: true
+            role: true
         }
     })
 

@@ -11,6 +11,12 @@ const createUserSchema = z.object({
 // transformando o schema em tipo para o request body
 export type CreateUserInput = z.infer<typeof createUserSchema>
 
+const updateUserSchema = z.object({
+  email: z.string(),
+  role: z.string()
+})
+
+export type UpdateUserInput = z.infer<typeof updateUserSchema>
 
 //schema para registrar um usuario
 const createUserResponseSchema = z.object({
@@ -74,3 +80,4 @@ const deleteCarSchema = z.object({
 
 export type DeleteCarInput = z.infer<typeof deleteCarSchema>
 export type CreateSingleCarInput = z.infer<typeof deleteCarSchema>
+export type UpdateUserParam = z.infer<typeof deleteCarSchema>

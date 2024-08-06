@@ -1,14 +1,16 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { $ref } from "./schema.js";
-import { createCar, createUser, deleteCar, getCar, getCars, getUsers, logout, updateCar } from "./controller.js";
+import { createCar, createUser, deleteCar, getCar, getCars, getUsers, logout, updateCar, updateUser } from "./controller.js";
 import { login } from "./controller.js";
 
 export async function routes(app: FastifyInstance) {
   app.get("/", {
     preHandler: [app.authenticate]
-  }, (request: FastifyRequest, reply: FastifyReply) => {
-    getUsers;
-  });
+  }, () => {});
+
+  app.get("/users", {preHandler: [app.authenticate]}, 
+    getUsers
+  )
 
   app.post('registro',
     {
@@ -21,6 +23,8 @@ export async function routes(app: FastifyInstance) {
     },
     createUser
   )
+
+  app.put("/user/:id", {preHandler: [app.authenticate]}, updateUser)
 
   app.post(
     "login",

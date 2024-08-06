@@ -1,8 +1,8 @@
 export type CarType = {
     id: Number,
-    nome: String,
-    marca: String,
-    modelo: String,
+    nome: string,
+    marca: string,
+    modelo: string,
     valor: Number,
-    foto: String
+    foto: string
 }

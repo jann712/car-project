@@ -1,10 +1,11 @@
 import CarCard from "../components/carros/CarCard";
 import api from "../lib/axios";
 import { useEffect, useState } from "react";
+import { CarType } from "../lib/types";
 
 
 export default function CarSearch() {
-    const [carros, setCarros] = useState([])
+    const [carros, setCarros] = useState<CarType[]>([])
 
     useEffect(() => {
       api.get("carros").then(response => setCarros(response.data))
