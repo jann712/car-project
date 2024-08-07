@@ -61,6 +61,9 @@ Usando o ORM do Prisma, criei as seguintes tabelas:
 	- hashPassword String;
 	- role String.
 
+## Criação de usuários
+Basta enviar uma requisição POST para o url "registro" do servidor backend com o email e senha no corpo da requisição.
+
 
 ## Vídeo demonstração
 [Gravei um rápido vídeo para demonstração da aplicação.](https://youtu.be/ISP2Ojap4r8)
