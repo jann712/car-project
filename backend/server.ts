@@ -5,36 +5,27 @@ import fastifyCookie from "@fastify/cookie";
 import { userSchemas } from "./schema.js";
 import { routes } from "./routes.js";
 
-// type User = {
-//     id: Number,
-//     email: String,
-//     hashPassword: String
-
-// }
-
-// type Car = {
-//     id: Number,
-//     nome: String,
-//     marca: String,
-//     modelo: String,
-//     valor: Number,
-//     foto: String
-// }
-
-
+//variaveis
+const { FJWT_SECRET, FCOOKIE_SECRET } = process.env
 
 const app = Fastify({
     logger: true
 })
 
+//adicionando schemas
 for (let schema of [...userSchemas]) {
     app.addSchema(schema)
 }
 
+//registrando rotas
 app.register(routes, {prefix: 'api/'})
 
-app.register(fjwt, {secret: 'supersecret'})
 
+//registrando jwt
+app.register(fjwt, {secret: FJWT_SECRET})
+
+
+//decorador de autenticacao
 app.decorate('authenticate',
     async (request: FastifyRequest, reply: FastifyReply) => {
         const token = request.cookies.access_token
@@ -53,14 +44,17 @@ app.addHook('preHandler', (request, reply, next) => {
     return next()
 })
 
+
+//cors
 app.register(fastifyCors, {
     credentials: true,
     origin: "http://localhost:5173"
     
 })
 
+//registrando cookie
 app.register(fastifyCookie, {
-    secret: 'supersecretkey',
+    secret: FCOOKIE_SECRET,
     hook: 'preHandler'
 })
 

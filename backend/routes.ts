@@ -12,6 +12,7 @@ export async function routes(app: FastifyInstance) {
     getUsers
   )
 
+  //cadastro de usuario
   app.post('registro',
     {
       schema: {
@@ -24,8 +25,10 @@ export async function routes(app: FastifyInstance) {
     createUser
   )
 
+  //att de usuario
   app.put("/user/:id", {preHandler: [app.authenticate]}, updateUser)
 
+  //login
   app.post(
     "login",
     {
@@ -41,8 +44,9 @@ export async function routes(app: FastifyInstance) {
 
   app.delete('logout',{ preHandler: [app.authenticate] }, logout)
   app.get("/carros", getCarsValor);
-  app.get("/admincarros", getCars);
+  app.get("/admincarros",{preHandler: [app.authenticate]}, getCars);
 
+  //crud carros
   app.get("/carro/:id", getCar);
   app.post("/carro",{preHandler: [app.authenticate]}, createCar);
   app.put("/carro/:id", { preHandler: [app.authenticate] }, updateCar);

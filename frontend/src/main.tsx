@@ -24,13 +24,9 @@ const router = createBrowserRouter([
       element: <Login />
     },
     // {
-    //   path: "logout",
-    //   element: <Logout />
+    //   path: "carro/:id",
+    //   element: <VendaCarro />
     // },
-    {
-      path: "carro/:id",
-      element: <VendaCarro />
-    },
     {
       path: "admin",
       element: <AdminPanel />

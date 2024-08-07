@@ -2,13 +2,24 @@ import { useEffect, useState } from "react";
 import api from "../lib/axios";
 import { CarType } from "../lib/types";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 export default function AdminPanel() {
   const [carros, setCarros] = useState<CarType[]>([]);
   const navigate = useNavigate();
+  const isAuthenticatedCookie = Cookies.get("is_authenticated")
+  let isAuthenticated = false;
+
+  if (isAuthenticatedCookie) {
+      isAuthenticated = true;
+  } else {
+    navigate("carros", {replace: true})
+  }
 
   useEffect(() => {
-    api.get("admincarros").then((response) => setCarros(response.data));
+    api.get("admincarros").then((response) => setCarros(response.data), () => {
+        navigate("carros", {replace: true})
+    });
   }, []);
   return (
     <div className="flex flex-col items-center">
