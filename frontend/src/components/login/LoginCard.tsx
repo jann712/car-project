@@ -26,15 +26,15 @@ export default function LoginCard() {
     }
 
     return (
-        <div className="absolute top-1/4 left-1/4 w-1/3 rounded border-4 border-blue-500">
-            <div className="bg-blue-200 w-full py-16 justify-center flex">
+        <div className="flex items-center justify-center"> 
+            <div className="shadow-lg w-full p-8 m-4 justify-center flex">
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 w-full h-full text-center items-center">
-                    <h2 className="text-lg font-semibold my-3">Administrador</h2>
+                    <h2 className="text-lg font-semibold my-3">Login Administrador</h2>
 
                     <div className="flex flex-col items-center my-4 text-start gap-5">
                         <div className="grid w-72">
-                            <label htmlFor="user">Usuário</label>
-                            <input id="user" type="text" className="rounded p-2 hover:border-blue-400 border-2 transition" {...register("email")}/>
+                            <label htmlFor="email">E-mail</label>
+                            <input id="email" type="text" className="rounded p-2 hover:border-blue-400 border-2 transition" {...register("email")}/>
                         </div>
 
                         <div className="grid w-72">
@@ -43,7 +43,7 @@ export default function LoginCard() {
                         </div>
                     </div>
 
-                    <button className="rounded bg-orange-300 border-orange-500 w-1/2 p-2 hover:bg-orange-500 transition hover:text-white">Entrar</button>
+                    <button className="antialiased rounded bg-blue-500 w-1/2 p-2  text-white font-semibold transition hover:bg-blue-700">Entrar</button>
                 </form>
             </div>
         </div>

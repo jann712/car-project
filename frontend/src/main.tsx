@@ -6,6 +6,10 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import CarSearch from './pages/CarSearch.tsx'
 import Login from './pages/Login.tsx'
 import VendaCarro from './pages/VendaCarro.tsx'
+import AdminPanel from './pages/AdminPanel.tsx'
+import NovoCarro from './pages/NovoCarro.tsx'
+import EditCar from './pages/EditCar.tsx'
+import Logout from './pages/Logout.tsx'
 
 const router = createBrowserRouter([
   {
@@ -19,9 +23,25 @@ const router = createBrowserRouter([
       path: "login",
       element: <Login />
     },
+    // {
+    //   path: "logout",
+    //   element: <Logout />
+    // },
     {
       path: "carro/:id",
       element: <VendaCarro />
+    },
+    {
+      path: "admin",
+      element: <AdminPanel />
+    },
+    {
+      path: "carro/novo",
+      element: <NovoCarro />
+    },
+    {
+      path: "carro/edit/:id",
+      element: <EditCar />
     }]
 
   },

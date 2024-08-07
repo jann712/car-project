@@ -103,6 +103,7 @@ export async function login(
 //logout
 export async function logout(request: FastifyRequest, reply: FastifyReply) {
     reply.clearCookie('access_token')
+    reply.clearCookie('is_authenticated')
 
     return reply.send({message: 'Logout feito com sucesso.'})
 }
@@ -138,7 +139,27 @@ export async function getCar(request:FastifyRequest<{Params: CreateSingleCarInpu
 
 
 //obter todos os carros
+export async function getCarsValor(request: FastifyRequest, reply: FastifyReply) {
+    
+    const carros = await prisma.car.findMany({
+        select: {
+            id: true,
+            nome: true,
+            marca: true,
+            modelo: true,
+            valor: true,
+            foto: true
+        },
+        orderBy: {
+            valor: "desc"
+        }
+    }, )
+
+    return reply.code(200).send(carros)
+}
+
 export async function getCars(request: FastifyRequest, reply: FastifyReply) {
+    
     const carros = await prisma.car.findMany({
         select: {
             id: true,
@@ -148,7 +169,7 @@ export async function getCars(request: FastifyRequest, reply: FastifyReply) {
             valor: true,
             foto: true
         }
-    })
+    }, )
 
     return reply.code(200).send(carros)
 }
@@ -174,7 +195,7 @@ export async function createCar(request: FastifyRequest<{Body: CreateCarInput}>,
                 nome,
                 marca,
                 modelo,
-                valor,
+                valor: parseFloat(valor),
                 foto
             }
         })
@@ -204,12 +225,12 @@ export async function updateCar(request: FastifyRequest<{Body: UpdateCarInput, P
 
     try {
         const carro = await prisma.car.update({where: {
-            id: id
+            id: parseInt(id)
         }, data: {
             nome,
             marca,
             modelo,
-            valor,
+            valor: parseFloat(valor),
             foto
         }}, )
 
@@ -231,7 +252,7 @@ export async function deleteCar(request: FastifyRequest<{Params: DeleteCarInput}
     }
 
     try {
-        await prisma.car.delete({where: {id : id}})
+        await prisma.car.delete({where: {id : parseInt(id)}})
 
         return reply.code(201).send("Carro deletado.")
     } catch (err) {
