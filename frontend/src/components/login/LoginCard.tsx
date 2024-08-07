@@ -27,9 +27,9 @@ export default function LoginCard() {
 
     return (
         <div className="flex items-center justify-center"> 
-            <div className="shadow-lg w-full p-8 m-4 justify-center flex">
+            <div className="shadow-lg w-full p-8 m-4 justify-center flex md:w-3/4 lg:w-1/2 xl:w-1/4 pb-16">
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 w-full h-full text-center items-center">
-                    <h2 className="text-lg font-semibold my-3">Login Administrador</h2>
+                    <h2 className="text-2xl font-semibold my-3">Login Administrador</h2>
 
                     <div className="flex flex-col items-center my-4 text-start gap-5">
                         <div className="grid w-72">

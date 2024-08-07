@@ -12,20 +12,20 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="flex items-center justify-between border-b-2 border-b-blue-800 p-4">
-            <div className="flex gap-5 text-sm">
+        <nav className="flex items-center justify-between border-b-2 border-b-blue-300 p-4 bg-gradient-to-br from-white to-blue-50">
+            <div className="flex gap-5 text-sm lg:text-lg">
                 <Link to={"/carros"}>Listagem de Carros</Link>
             </div>
-            {isAuthenticated && <Link to={"/admin"} className="text-sm">Painel Admin</Link>}
+            {isAuthenticated && <Link to={"/admin"} className="text-sm lg:text-lg">Painel Admin</Link>}
             <div className="grid grid-cols-2">
                 
-                {!isAuthenticated && <Link to={"/login"} className="text-sm">Login</Link>}
+                {!isAuthenticated && <Link to={"/login"} className="text-sm lg:text-lg">Login</Link>}
                 {isAuthenticated && <button onClick={async () => {
                     await api.delete("/logout")
                     navigate("/carros", {replace: true})
                     window.location.reload()
                     
-                    }} className="text-sm">Logout</button>}
+                    }} className="text-sm lg:text-lg">Logout</button>}
                 
             </div>
         </nav>

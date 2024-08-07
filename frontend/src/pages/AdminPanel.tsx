@@ -11,7 +11,7 @@ export default function AdminPanel() {
     api.get("admincarros").then((response) => setCarros(response.data));
   }, []);
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <div className="flex items-center justify-center m-3">
         <button
           type="button"
@@ -27,13 +27,13 @@ export default function AdminPanel() {
         return (
           <div
             key={carro.id}
-            className="m-3 rounded-lg border-2 border-gray-100 shadow-md flex flex-col"
+            className="m-3 rounded-lg border-2 border-gray-100 shadow-md  flex flex-col justify-center md:w-3/4 lg:w-1/2 xl:w-1/4 pb-16"
           >
             <div className="flex justify-center">
               <img
                 src={carro.foto}
                 alt=""
-                className="w-full rounded-t-lg max-h-64 "
+                className="w-fit rounded-t-lg max-h-64 "
               />
             </div>
             <div className="grid grid-cols-2 m-4 p-8 border-2 rounded border-slate-50">

@@ -33,10 +33,10 @@ export default function EditCar() {
     
     return (
       <>
-      <div className=" justify-center items-center flex w-full">
+      <div className=" justify-center items-center flex w-full ">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-1 px-16 py-4 mt-4  shadow-lg  [&>div]:flex [&>div]:flex-col [&>*]:my-3"
+          className="grid grid-cols-1 px-16 py-4 mt-4 md:w-3/4 lg:w-1/2 xl:w-1/4 pb-16 shadow-lg  [&>div]:flex [&>div]:flex-col [&>*]:my-3"
         >
           <div className="text-center my-6">
             <h2 className="text-3xl font-bold">Editar Carro</h2>
